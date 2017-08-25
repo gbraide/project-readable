@@ -10,14 +10,15 @@ class Home extends Component {
 	}
 	render() {
 		let tabs = []
-		let tabPanels = []
+		let tabPanels = []		
 		if(this.props.allCategories.categories){
+			tabs.push(<Tab key="All">ALL</Tab>)
+			tabPanels.push(<TabPanel key="All">All Panel</TabPanel>)
 			this.props.allCategories.categories.forEach((item) => {
-				tabs.push(<Tab key={item.name} >{item.name}</Tab>)
+				tabs.push(<Tab key={item.name} >{item.name.toUpperCase()}</Tab>)
 				tabPanels.push(<TabPanel key={item.name} >{item.name}</TabPanel>)
 			})		
 		}
-		
 		return (
 			<div>
 				<Tabs>
