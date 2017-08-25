@@ -12,3 +12,9 @@ export const COMMENT_DETAILS = 'COMMENT_DETAILS'//Get the details for a single c
 export const COMMENT_VOTE = 'COMMENT_VOTE'//Used for voting on a comment.
 export const EDIT_COMMENT = 'EDIT_COMMENT'//Edit the details of an existing comment.
 export const DELETE_COMMENT = 'DELETE_COMMENT'//Sets a comment's deleted flag to 'true'.
+
+//Action creators
+export const loadCategories = categories => ({
+	type: GET_ALL_CATEGORIES,
+	categories
+})

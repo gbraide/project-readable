@@ -6,9 +6,9 @@ import comments from './comments'
 import loading from './loading'
 
 export default combineReducers({
-	routing: routerReducer,
-	categories: categories,
-	posts: posts,
-	comments: comments,
-	loading: loading
+	routerReducer,
+	categories,
+	posts,
+	comments,
+	loading
 })
