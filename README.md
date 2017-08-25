@@ -7,8 +7,8 @@ This app will talk to a backend server using documented API endpoints to manage 
 
 ## Installation
 
-Install packages: `npm install`.
-Run backend: [Project Readable Starter](https://github.com/udacity/reactnd-project-readable-starter).
-Launch react/redux app: `npm start`.
+1. Install packages: `npm install`.
+2. Run backend: [Project Readable Starter](https://github.com/udacity/reactnd-project-readable-starter).
+3. Launch react/redux app: `npm start`.
 
 **This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).**
