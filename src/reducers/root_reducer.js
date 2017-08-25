@@ -3,7 +3,7 @@ import { routerReducer } from 'react-router-redux'
 import categories from './categories'
 import posts from './posts'
 import comments from './comments'
-import loading from './loading_reducer'
+import loading from './loading'
 
 export default combineReducers({
     routing: routerReducer,
