@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchCategories } from '../reducers/categories'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import SortBy from './SortBy'
 import '../App.css'
 
 class Home extends Component {
@@ -13,10 +14,10 @@ class Home extends Component {
 		let tabPanels = []		
 		if(this.props.allCategories.categories){
 			tabs.push(<Tab key="All">ALL</Tab>)
-			tabPanels.push(<TabPanel key="All">All Panel</TabPanel>)
+			tabPanels.push(<TabPanel key="All">All Panel<SortBy /></TabPanel>)
 			this.props.allCategories.categories.forEach((item) => {
 				tabs.push(<Tab key={item.name} >{item.name.toUpperCase()}</Tab>)
-				tabPanels.push(<TabPanel key={item.name} >{item.name}</TabPanel>)
+				tabPanels.push(<TabPanel key={item.name} >{item.name}<SortBy /></TabPanel>)
 			})		
 		}
 		return (
@@ -25,6 +26,7 @@ class Home extends Component {
 					<TabList>
 						{tabs}
 					</TabList>
+					
 					{tabPanels}
 				</Tabs>
 			</div>

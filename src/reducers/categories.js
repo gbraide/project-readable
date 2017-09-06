@@ -1,14 +1,17 @@
-import { GET_ALL_CATEGORIES, loadCategories} from '../actions'
+import { GET_ALL_CATEGORIES, loadCategories, SORT_CATEGORIES} from '../actions'
 import { getAllCategories } from '../util/CategoriesAPI'
 
-const initialAllCategoriesState = {
-	allCategories: []
+const initialCategoriesState = {
+	allCategories: [],
+	sortBy: 'voteScore'
 }
 
-export default (state = initialAllCategoriesState, action) => {
+export default (state = initialCategoriesState, action) => {
 	switch(action.type){
-    case GET_ALL_CATEGORIES: 
+	case GET_ALL_CATEGORIES: 
 		return {...state, allCategories: action.categories}
+	case SORT_CATEGORIES: 
+		return {...state, sortBy: action.sortOption}
 	default:
 		return state
 	}
