@@ -14,10 +14,10 @@ class Home extends Component {
 		let tabPanels = []		
 		if(this.props.allCategories.categories){
 			tabs.push(<Tab key="All">ALL</Tab>)
-			tabPanels.push(<TabPanel key="All">All Panel<SortBy /></TabPanel>)
+			tabPanels.push(<TabPanel key="All">All Panel<SortBy category="all"/></TabPanel>)
 			this.props.allCategories.categories.forEach((item) => {
 				tabs.push(<Tab key={item.name} >{item.name.toUpperCase()}</Tab>)
-				tabPanels.push(<TabPanel key={item.name} >{item.name}<SortBy /></TabPanel>)
+				tabPanels.push(<TabPanel key={item.name} >{item.name}<SortBy category={item.name}/></TabPanel>)
 			})		
 		}
 		return (
@@ -25,8 +25,7 @@ class Home extends Component {
 				<Tabs>
 					<TabList>
 						{tabs}
-					</TabList>
-					
+					</TabList>				
 					{tabPanels}
 				</Tabs>
 			</div>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { sortCategories } from '../actions'
+import { fetchPosts, fetchAllPosts } from '../reducers/posts'
 import '../App.css'
 
 class SortBy extends Component {
@@ -9,12 +11,18 @@ class SortBy extends Component {
     
 		this.handleOptionChange = this.handleOptionChange.bind(this)
 	}
-    
+	componentDidMount(){
+		if(this.props.category === 'all'){
+			this.props.fetchAllPosts()
+		}else{
+			this.props.fetchPosts(this.props.category)  
+		}
+	} 
 	handleOptionChange(e) {
 		this.props.onSort(e.target.value)
 	}
 	render() {
-
+        console.log(this.props.posts)//TODO: Render returned post for each category
 		return (
 			<form>
 				<div className="radio">
@@ -33,13 +41,13 @@ class SortBy extends Component {
 		)
 	}
 }
+const mapDispatchToProps = dispatch => bindActionCreators({ 
+	onSort: (value) => sortCategories(value),
+	fetchPosts: (category) => fetchPosts(category),
+	fetchAllPosts: () => fetchAllPosts()
+}, dispatch)
 
-const mapDispatchToProps = dispatch => {
-	return {
-		onSort: value => {dispatch(sortCategories(value))}
-	}
-}
 export default connect(
-	(state) => ({sortBy: state.categories.sortBy}), 
+	(state) => ({sortBy: state.categories.sortBy, posts: state.posts.posts}), 
 	mapDispatchToProps
 )(SortBy)

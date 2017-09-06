@@ -1,5 +1,5 @@
 export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'//Get all of the categories available for the app.
-export const GET_CATEGORY = 'GET_CATEGORY'//Get all of the posts for a particular category. 
+export const GET_POSTS = 'GET_POSTS'//Get all of the posts for a particular category. 
 export const GET_ALL_POSTS = 'GET_ALL_POSTS'//Get all of the posts.
 export const ADD_POST = 'ADD_POST'//Add a new post.
 export const GET_SINGLE_POST = 'GET_SINGLE_POST'//Get the details of a single post.
@@ -22,4 +22,12 @@ export const loadCategories = categories => ({
 export const sortCategories = sortOption => ({
 	type: SORT_CATEGORIES,
 	sortOption
+})
+export const loadPosts = post => ({
+	type: GET_POSTS,
+	post
+})
+export const loadAllPosts = post => ({
+	type: GET_ALL_POSTS,
+	post
 })
