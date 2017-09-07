@@ -11,6 +11,7 @@ class Home extends Component {
 		super(props)
     
 		this.handleClick = this.handleClick.bind(this)
+		this.handlePostAdd = this.handlePostAdd.bind(this)
 	}
 	componentDidMount(){
 		this.props.fetchAllCategories()
@@ -22,6 +23,9 @@ class Home extends Component {
 		}else{
 			this.props.fetchPosts(e.target.value)
 		}
+	}
+	handlePostAdd(){
+		this.props.history.push('/add-post')
 	}
 	render() {
 		const categoriesList = []
@@ -43,6 +47,7 @@ class Home extends Component {
 				</nav>
 				<section>
 					<SortBy />
+					<button onClick={this.handlePostAdd}>Add Post</button>
 					<Posts posts={this.props.posts} sortOrder={this.props.sortBy}/>
 				</section>
 			</div>

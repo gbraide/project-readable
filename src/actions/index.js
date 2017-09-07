@@ -13,6 +13,10 @@ export const COMMENT_VOTE = 'COMMENT_VOTE'//Used for voting on a comment.
 export const EDIT_COMMENT = 'EDIT_COMMENT'//Edit the details of an existing comment.
 export const DELETE_COMMENT = 'DELETE_COMMENT'//Sets a comment's deleted flag to 'true'.
 export const SORT_CATEGORIES = 'SORT_CATEGORIES'
+export const NEW_POST_TITLE = 'NEW_POST_TITLE'
+export const NEW_POST_BODY = 'NEW_POST_BODY'
+export const NEW_POST_AUTHOR = 'NEW_POST_AUTHOR'
+export const NEW_POST_CATEGORY = 'NEW_POST_CATEGORY'
 
 //Action creators
 export const loadCategories = categories => ({
@@ -30,4 +34,24 @@ export const loadPosts = post => ({
 export const loadAllPosts = post => ({
 	type: GET_ALL_POSTS,
 	post
+})
+export const addPost = post => ({
+	type: ADD_POST,
+	post
+})
+export const newPostTitle = value => ({
+	type: NEW_POST_TITLE,
+	value
+})
+export const newPostBody = value => ({
+	type: NEW_POST_BODY,
+	value
+})
+export const newPostAuthor = value => ({
+	type: NEW_POST_AUTHOR,
+	value
+})
+export const newPostCategory = value => ({
+	type: NEW_POST_CATEGORY,
+	value
 })
