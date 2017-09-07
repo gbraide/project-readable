@@ -36,6 +36,6 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 }, dispatch)
 
 export default connect(
-	(state) => ({sortBy: state.categories.sortBy}), 
+	(state) => ({sortBy: state.comments.sortCommentsBy}), 
 	mapDispatchToProps
 )(SortCommentsBy)
