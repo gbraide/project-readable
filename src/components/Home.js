@@ -1,39 +1,62 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchCategories } from '../reducers/categories'
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import { bindActionCreators } from 'redux'
 import SortBy from './SortBy'
-import '../App.css'
+import { Posts } from './Posts'
+import { fetchAllCategories } from '../reducers/categories'
+import { fetchPosts, fetchAllPosts } from '../reducers/posts'
 
 class Home extends Component {
+	constructor(props) {
+		super(props)
+    
+		this.handleClick = this.handleClick.bind(this)
+	}
 	componentDidMount(){
-		this.props.fetchCategories()
+		this.props.fetchAllCategories()
+		this.props.fetchAllPosts()
+	}
+	handleClick(e){
+		if(e.target.value === 'All'){
+			this.props.fetchAllPosts()
+		}else{
+			this.props.fetchPosts(e.target.value)
+		}
 	}
 	render() {
-		let tabs = []
-		let tabPanels = []		
-		if(this.props.allCategories.categories){
-			tabs.push(<Tab key="All">ALL</Tab>)
-			tabPanels.push(<TabPanel key="All">All Panel<SortBy category="all"/></TabPanel>)
-			this.props.allCategories.categories.forEach((item) => {
-				tabs.push(<Tab key={item.name} >{item.name.toUpperCase()}</Tab>)
-				tabPanels.push(<TabPanel key={item.name} >{item.name}<SortBy category={item.name}/></TabPanel>)
-			})		
+		const categoriesList = []
+		if(this.props.categoriesList){
+			this.props.categoriesList.forEach((category) => {
+				categoriesList.push(<span key={category.name}><input type="button" onClick={this.handleClick} value={category.name}/></span>)
+			})	
 		}
 		return (
 			<div>
-				<Tabs>
-					<TabList>
-						{tabs}
-					</TabList>				
-					{tabPanels}
-				</Tabs>
+				<header>
+					<h1>Readable App</h1>
+				</header>
+				<nav>
+					<form>
+						<span><input type="button" key="All" onClick={this.handleClick} value="All"/></span>
+						{categoriesList}
+					</form>
+				</nav>
+				<section>
+					<SortBy />
+					<Posts posts={this.props.posts} sortOrder={this.props.sortBy}/>
+				</section>
 			</div>
 		)
 	}
 }
 
+const mapDispatchToProps = dispatch => bindActionCreators({ 
+	fetchAllCategories: () => fetchAllCategories(),
+	fetchAllPosts: () => fetchAllPosts(),
+	fetchPosts: (category) => fetchPosts(category)
+}, dispatch)
+
 export default connect(
-	(state) => ({allCategories: state.categories.allCategories}), 
-	{fetchCategories}
+	(state) => ({categoriesList: state.categories.allCategories, sortBy: state.categories.sortBy, posts: state.posts.posts}), 
+	mapDispatchToProps
 )(Home)

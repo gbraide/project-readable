@@ -9,7 +9,7 @@ const initialCategoriesState = {
 export default (state = initialCategoriesState, action) => {
 	switch(action.type){
 	case GET_ALL_CATEGORIES: 
-		return {...state, allCategories: action.categories}
+		return {...state, allCategories: action.categories.categories}
 	case SORT_CATEGORIES: 
 		return {...state, sortBy: action.sortOption}
 	default:
@@ -17,7 +17,7 @@ export default (state = initialCategoriesState, action) => {
 	}
 }
 
-export const fetchCategories = () => {
+export const fetchAllCategories = () => {
 	return (dispatch) => {
 		getAllCategories()
 			.then(allCategories => dispatch(loadCategories(allCategories)))
