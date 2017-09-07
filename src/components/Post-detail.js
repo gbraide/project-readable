@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import SortCommentsBy from './SortCommentsBy'
+import { Comments } from './Comments'
 import { fetchSinglePost, deleteSinglePost } from '../reducers/posts'
+import { fetchAllComments } from '../reducers/comments'
 
 class PostDetail extends Component {
 	constructor(props) {
@@ -9,6 +12,7 @@ class PostDetail extends Component {
     
 		this.handleEdit = this.handleEdit.bind(this)
 		this.handleDelete = this.handleDelete.bind(this)
+		this.handleCommentAdd = this.handleCommentAdd.bind(this)
 	}
 	handleEdit(){
 		this.props.history.push(`/post/${this.props.post.id}/edit-post`)
@@ -17,8 +21,12 @@ class PostDetail extends Component {
 		this.props.onDeletePost(this.props.match.params.id)
 		this.props.history.push('/')
 	}
+	handleCommentAdd(){
+		console.log('Add button clicked')
+	}
 	componentDidMount(){
 		this.props.fetchSinglePost(this.props.match.params.id)
+		this.props.fetchAllComments(this.props.match.params.id)
 	}
 	render() {
 		const post = this.props.post
@@ -41,11 +49,16 @@ class PostDetail extends Component {
 					<div>
 						<span><button onClick={this.handleEdit}>Edit Post</button></span>
 						<span><button onClick={this.handleDelete}>Delete Post</button></span>
-					</div>
-					
+					</div>		
 					<hr/>
 					<p>{post.body}</p>
-				</article>			
+				</article>
+				<section>
+					<h4>Comments</h4>
+					<SortCommentsBy />
+					<button onClick={this.handleCommentAdd}>Add Comment</button>
+                    <Comments comments={this.props.comments} sortOrder={this.props.sortBy} />
+				</section>			
 			</div>
 		)
 	}
@@ -53,10 +66,11 @@ class PostDetail extends Component {
 
 const mapDispatchToProps = dispatch => bindActionCreators({ 
 	fetchSinglePost: (id) => fetchSinglePost(id),
-	onDeletePost: (id) => deleteSinglePost(id)
+	onDeletePost: (id) => deleteSinglePost(id),
+	fetchAllComments: (id) => fetchAllComments(id)
 }, dispatch)
 
 export default connect(
-	(state) => ({post: state.posts.post}), 
+	(state) => ({post: state.posts.post, comments: state.comments.allComments, sortBy: state.comments.sortCommentsBy}), 
 	mapDispatchToProps
 )(PostDetail)

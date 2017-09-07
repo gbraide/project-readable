@@ -17,6 +17,7 @@ export const NEW_POST_TITLE = 'NEW_POST_TITLE'
 export const NEW_POST_BODY = 'NEW_POST_BODY'
 export const NEW_POST_AUTHOR = 'NEW_POST_AUTHOR'
 export const NEW_POST_CATEGORY = 'NEW_POST_CATEGORY'
+export const SORT_COMMENTS = 'SORT_COMMENTS'
 
 //Action creators
 export const loadCategories = categories => ({
@@ -88,4 +89,8 @@ export const editDetailsComment = comment => ({
 export const deleteSingleComment = comment => ({
 	type: DELETE_COMMENT,
 	comment
+})
+export const sortComments = sortOption => ({
+	type: SORT_COMMENTS,
+	sortOption
 })
