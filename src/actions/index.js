@@ -63,3 +63,29 @@ export const deleteSinglePost = post => ({
 	type: DELETE_POST,
 	post
 })
+
+//Comment Action Creators
+export const getComments = comments => ({
+	type: GET_COMMENTS,
+	comments
+})
+export const addComment = comment => ({
+	type: ADD_COMMENT,
+	comment
+})
+export const getSingleComment = comment => ({
+	type: COMMENT_DETAILS,
+	comment
+})
+export const commentVote = comment => ({
+	type: COMMENT_VOTE,
+	comment
+})
+export const editDetailsComment = comment => ({
+	type: EDIT_COMMENT,
+	comment
+})
+export const deleteSingleComment = comment => ({
+	type: DELETE_COMMENT,
+	comment
+})
