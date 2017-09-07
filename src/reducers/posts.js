@@ -1,5 +1,5 @@
 import { GET_POSTS, GET_ALL_POSTS, ADD_POST, NEW_POST_TITLE, NEW_POST_BODY, NEW_POST_AUTHOR, NEW_POST_CATEGORY, GET_SINGLE_POST, loadPosts, loadAllPosts, getSinglePost} from '../actions'
-import { getPosts, getAllPosts, addNewPost, getPost } from '../util/PostsAPI'
+import { getPosts, getAllPosts, addNewPost, getPost, deletePost } from '../util/PostsAPI'
 
 const initialPostsState = {
 	posts: [],
@@ -58,5 +58,12 @@ export const fetchSinglePost = (id) => {
 	return (dispatch) => {
 		getPost(id)
 			.then(post => dispatch(getSinglePost(post)))
+	}
+}
+
+export const deleteSinglePost = (id) => {
+	return (dispatch) => {
+		deletePost(id)
+			.then(post => dispatch(loadAllPosts(post)))
 	}
 }

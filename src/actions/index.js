@@ -59,3 +59,7 @@ export const getSinglePost = post => ({
 	type: GET_SINGLE_POST,
 	post
 })
+export const deleteSinglePost = post => ({
+	type: DELETE_POST,
+	post
+})
