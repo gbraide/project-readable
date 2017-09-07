@@ -1,8 +1,9 @@
-import { GET_POSTS, GET_ALL_POSTS, ADD_POST, NEW_POST_TITLE, NEW_POST_BODY, NEW_POST_AUTHOR, NEW_POST_CATEGORY, loadPosts, loadAllPosts} from '../actions'
-import { getPosts, getAllPosts, addNewPost } from '../util/PostsAPI'
+import { GET_POSTS, GET_ALL_POSTS, ADD_POST, NEW_POST_TITLE, NEW_POST_BODY, NEW_POST_AUTHOR, NEW_POST_CATEGORY, GET_SINGLE_POST, loadPosts, loadAllPosts, getSinglePost} from '../actions'
+import { getPosts, getAllPosts, addNewPost, getPost } from '../util/PostsAPI'
 
 const initialPostsState = {
 	posts: [],
+	post: [],
 	newPostTitle: '',
 	newPostBody: '',
 	newPostAuthor: '',
@@ -25,6 +26,8 @@ export default (state = initialPostsState, action) => {
 		return {...state, newPostAuthor: action.value}
 	case NEW_POST_CATEGORY: 
 		return {...state, newPostCategory: action.value}
+	case GET_SINGLE_POST:
+		return {...state, post: action.post}
 	default:
 		return state
 	}
@@ -48,5 +51,12 @@ export const sendPost = (post) => {
 	return (dispatch) => {
 		addNewPost(post)
 			.then(posts => dispatch(loadAllPosts(posts)))
+	}
+}
+
+export const fetchSinglePost = (id) => {
+	return (dispatch) => {
+		getPost(id)
+			.then(post => dispatch(getSinglePost(post)))
 	}
 }

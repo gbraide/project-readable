@@ -5,7 +5,7 @@ import { newPostTitle, newPostBody, newPostAuthor, newPostCategory } from '../ac
 import { fetchAllCategories } from '../reducers/categories'
 import { sendPost } from '../reducers/posts'
 
-class SortBy extends Component {
+class AddPost extends Component {
 	constructor(props) {
 		super(props)
     
@@ -91,4 +91,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 export default connect(
 	(state) => ({categoriesList: state.categories.allCategories, title: state.posts.newPostTitle, body: state.posts.newPostBody, author: state.posts.newPostAuthor, category: state.posts.newPostCategory}), 
 	mapDispatchToProps
-)(SortBy)
+)(AddPost)

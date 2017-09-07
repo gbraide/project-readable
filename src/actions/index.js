@@ -55,3 +55,7 @@ export const newPostCategory = value => ({
 	type: NEW_POST_CATEGORY,
 	value
 })
+export const getSinglePost = post => ({
+	type: GET_SINGLE_POST,
+	post
+})

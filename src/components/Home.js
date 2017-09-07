@@ -48,7 +48,7 @@ class Home extends Component {
 				<section>
 					<SortBy />
 					<button onClick={this.handlePostAdd}>Add Post</button>
-					<Posts posts={this.props.posts} sortOrder={this.props.sortBy}/>
+					<Posts posts={this.props.posts} sortOrder={this.props.sortBy} />
 				</section>
 			</div>
 		)

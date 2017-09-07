@@ -1,6 +1,16 @@
 import React, { Component } from 'react'
+import { push } from 'react-router-redux'
+import store from '../store'
 
 class PostItem extends Component {
+	constructor(props) {
+		super(props)
+    
+		this.handleClick = this.handleClick.bind(this)
+	}
+	handleClick(){
+		store.dispatch(push(`/post/${this.props.post.id}`))	
+	}
 	render() {
 		const post = this.props.post
 		const convertTimestamp = new Date(post.timestamp)
@@ -16,6 +26,7 @@ class PostItem extends Component {
 				<hr/>
 				<small> Category: {post.category} |</small>
 				<small> Score: {post.voteScore}</small>
+				<button onClick={this.handleClick}>Post Detail</button>
 			</section>
 		)
 	}
