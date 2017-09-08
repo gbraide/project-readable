@@ -5,6 +5,7 @@ import AddPost from './Add-post';
 import PostDetail from './Post-detail';
 import EditPost from './Edit-post';
 import AddComment from './Add-comment';
+import EditComment from './Edit-comment';
 import '../App.css';
 
 const NoMatch = ({ location }) => (
@@ -23,6 +24,7 @@ const App = () => (
       <Route exact path="/post/:id" component={PostDetail} />
       <Route exact path="/post/:id/edit-post" component={EditPost} />
       <Route exact path="/post/:id/add-comment" component={AddComment} />
+      <Route exact path="/post/:id/edit-comment/:commentId" component={EditComment} />
       <Route component={NoMatch} />
     </Switch>
   </div>
