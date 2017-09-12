@@ -40,4 +40,4 @@ export const deleteComment = id =>
   fetch(`${api}/comments/${id}`, {
     method: 'DELETE',
     headers: { ...headers },
-  }).then(res => res.json());
+  });
