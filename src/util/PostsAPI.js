@@ -36,3 +36,10 @@ export const deletePost = id =>
     method: 'DELETE',
     headers: { ...headers },
   });
+
+export const voteOnPost = (id, body) =>
+  fetch(`${api}/posts/${id}`, {
+    method: 'POST',
+    headers: { ...headers },
+    body: JSON.stringify(body),
+  }).then(res => res.json());

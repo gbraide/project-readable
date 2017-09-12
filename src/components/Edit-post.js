@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { newPostTitle, newPostBody } from '../actions';
-import { fetchSinglePost, editPost } from '../reducers/posts';
+import { fetchSinglePost, editPost, postVote } from '../reducers/posts';
 
 class EditPost extends Component {
   constructor(props) {
@@ -12,6 +12,8 @@ class EditPost extends Component {
     this.handleBodyChange = this.handleBodyChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+    this.handleUpVote = this.handleUpVote.bind(this);
+    this.handleDownVote = this.handleDownVote.bind(this);
   }
   componentDidMount() {
     this.props.fetchSinglePost(this.props.match.params.id);
@@ -21,6 +23,12 @@ class EditPost extends Component {
   }
   handleBodyChange(e) {
     this.props.onBodyChange(e.target.value);
+  }
+  handleUpVote() {
+    this.props.upVotePost(this.props.match.params.id, { option: 'upVote' });
+  }
+  handleDownVote() {
+    this.props.downVotePost(this.props.match.params.id, { option: 'downVote' });
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -49,6 +57,17 @@ class EditPost extends Component {
         <header>
           <h1>Readable App</h1>
           <h4>Edit Post</h4>
+          <div>
+            <cite>
+              <small> Score: {this.props.post.voteScore} </small>
+              <small>
+                <button onClick={this.handleUpVote}>Up Vote</button>
+              </small>
+              <small>
+                <button onClick={this.handleDownVote}>Down vote</button>
+              </small>
+            </cite>
+          </div>
         </header>
         <form onSubmit={this.handleSubmit}>
           <input
@@ -89,6 +108,8 @@ const mapDispatchToProps = dispatch =>
       onTitleChange: value => newPostTitle(value),
       onBodyChange: value => newPostBody(value),
       onSubmit: (id, post) => editPost(id, post),
+      upVotePost: (id, vote) => postVote(id, vote),
+      downVotePost: (id, vote) => postVote(id, vote),
     },
     dispatch,
   );

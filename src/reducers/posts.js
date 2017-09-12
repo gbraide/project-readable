@@ -19,6 +19,7 @@ import {
   getPost,
   deletePost,
   editExistingPost,
+  voteOnPost,
 } from '../util/PostsAPI';
 
 const initialPostsState = {
@@ -74,4 +75,8 @@ export const editPost = (id, editedPost) => (dispatch) => {
 
 export const deleteSinglePost = id => (dispatch) => {
   deletePost(id).then(post => dispatch(loadAllPosts(post)));
+};
+
+export const postVote = (id, vote) => (dispatch) => {
+  voteOnPost(id, vote).then(post => dispatch(getSinglePost(post)));
 };

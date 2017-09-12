@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import SortCommentsBy from './SortCommentsBy';
 import { Comments } from './Comments';
-import { fetchSinglePost, deleteSinglePost } from '../reducers/posts';
+import { fetchSinglePost, deleteSinglePost, postVote } from '../reducers/posts';
 import { fetchAllComments } from '../reducers/comments';
 
 class PostDetail extends Component {
@@ -13,6 +13,14 @@ class PostDetail extends Component {
     this.handleEdit = this.handleEdit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleCommentAdd = this.handleCommentAdd.bind(this);
+    this.handleUpVote = this.handleUpVote.bind(this);
+    this.handleDownVote = this.handleDownVote.bind(this);
+  }
+  handleUpVote() {
+    this.props.upVotePost(this.props.match.params.id, { option: 'upVote' });
+  }
+  handleDownVote() {
+    this.props.downVotePost(this.props.match.params.id, { option: 'downVote' });
   }
   handleEdit() {
     this.props.history.push(`/post/${this.props.post.id}/edit-post`);
@@ -41,6 +49,16 @@ class PostDetail extends Component {
         <article>
           <div style={{ float: 'right' }}>
             <small> Score: {post.voteScore}</small>
+            <div>
+              <cite>
+                <small>
+                  <button onClick={this.handleUpVote}>Up Vote</button>
+                </small>
+                <small>
+                  <button onClick={this.handleDownVote}>Down vote</button>
+                </small>
+              </cite>
+            </div>
           </div>
           <h4>{post.title}</h4>
           <div>
@@ -82,6 +100,8 @@ const mapDispatchToProps = dispatch =>
       fetchSinglePost: id => fetchSinglePost(id),
       onDeletePost: id => deleteSinglePost(id),
       fetchAllComments: id => fetchAllComments(id),
+      upVotePost: (id, vote) => postVote(id, vote),
+      downVotePost: (id, vote) => postVote(id, vote),
     },
     dispatch,
   );
