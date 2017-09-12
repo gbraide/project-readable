@@ -14,6 +14,7 @@ import {
   getSingleComments,
   editExistingComment,
   deleteComment,
+  voteOnComment,
 } from '../util/CommentsAPI';
 
 const initialCommentsState = {
@@ -59,4 +60,7 @@ export const editComment = (id, comment) => (dispatch) => {
 };
 export const deleteSingleComment = id => (dispatch) => {
   deleteComment(id).then(allComments => dispatch(getComments(allComments)));
+};
+export const commentVote = (id, vote) => (dispatch) => {
+  voteOnComment(id, vote).then(allComments => dispatch(getComments(allComments)));
 };

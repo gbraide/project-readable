@@ -1,17 +1,28 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import store from '../store';
+import { commentVote } from '../reducers/comments';
 
 class CommentItem extends Component {
   constructor(props) {
     super(props);
 
     this.handleClick = this.handleClick.bind(this);
+    this.handleUpVote = this.handleUpVote.bind(this);
+    this.handleDownVote = this.handleDownVote.bind(this);
   }
   handleClick() {
     store.dispatch(
       push(`/post/${this.props.comment.parentId}/edit-comment/${this.props.comment.id}`),
     );
+  }
+  handleUpVote() {
+    this.props.upVoteComment(this.props.comment.id, { option: 'upVote' });
+  }
+  handleDownVote() {
+    this.props.downVoteComment(this.props.comment.id, { option: 'downVote' });
   }
   render() {
     const comment = this.props.comment;
@@ -27,13 +38,19 @@ class CommentItem extends Component {
           <span>
             <cite>
               <small> {date}</small>
-            </cite>|
-          </span>
-          <span>
-            <cite>
-              <small> Score: {comment.voteScore}</small>
             </cite>
           </span>
+        </div>
+        <div>
+          <cite>
+            <small> Score: {comment.voteScore} </small>
+            <small>
+              <button onClick={this.handleUpVote}>Up Vote</button>
+            </small>
+            <small>
+              <button onClick={this.handleDownVote}>Down vote</button>
+            </small>
+          </cite>
         </div>
         <p>{comment.body}</p>
         <button onClick={this.handleClick}>Comment Detail</button>
@@ -42,4 +59,12 @@ class CommentItem extends Component {
   }
 }
 
-export default CommentItem;
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      upVoteComment: (id, vote) => commentVote(id, vote),
+      downVoteComment: (id, vote) => commentVote(id, vote),
+    },
+    dispatch,
+  );
+export default connect(null, mapDispatchToProps)(CommentItem);
