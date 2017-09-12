@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { newCommentBody, newCommentAuthor } from '../actions';
-import { fetchSingleComment, editComment, deleteSingleComment } from '../reducers/comments';
+import {
+  fetchSingleComment,
+  editComment,
+  deleteSingleComment,
+  commentVote,
+} from '../reducers/comments';
 
 class EditComment extends Component {
   constructor(props) {
@@ -13,6 +18,8 @@ class EditComment extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleUpVote = this.handleUpVote.bind(this);
+    this.handleDownVote = this.handleDownVote.bind(this);
   }
   componentDidMount() {
     this.props.fetchSingleComment(this.props.match.params.commentId);
@@ -22,6 +29,12 @@ class EditComment extends Component {
   }
   handleAuthorChange(e) {
     this.props.onAuthorChange(e.target.value);
+  }
+  handleUpVote() {
+    this.props.upVoteComment(this.props.comment.id, { option: 'upVote' });
+  }
+  handleDownVote() {
+    this.props.downVoteComment(this.props.comment.id, { option: 'downVote' });
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -42,19 +55,30 @@ class EditComment extends Component {
   }
   handleDelete() {
     this.props.onDeletePost(this.props.comment.id);
-    // this.props.history.push(`/post/${this.props.match.params.id}`);
-    // this.props.onBodyChange('');
+    this.props.onBodyChange('');
+    this.props.history.push(`/post/${this.props.match.params.id}`);
   }
   render() {
     const bodyPlaceholder = this.props.body ? this.props.body : this.props.comment.body;
     const authorPlaceholder = this.props.author ? this.props.author : this.props.comment.author;
-
     return (
       <div>
         <header>
           <h1>Readable App</h1>
           <h4>View/Edit Comment</h4>
+          <div>
+            <cite>
+              <small> Score: {this.props.comment.voteScore} </small>
+              <small>
+                <button onClick={this.handleUpVote}>Up Vote</button>
+              </small>
+              <small>
+                <button onClick={this.handleDownVote}>Down vote</button>
+              </small>
+            </cite>
+          </div>
         </header>
+        <hr />
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
@@ -87,6 +111,12 @@ class EditComment extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  body: state.comments.newCommentBody,
+  author: state.comments.newCommentAuthor,
+  comment: state.comments.comment,
+});
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
@@ -95,15 +125,9 @@ const mapDispatchToProps = dispatch =>
       onAuthorChange: value => newCommentAuthor(value),
       onSubmit: (id, comment) => editComment(id, comment),
       onDeletePost: id => deleteSingleComment(id),
+      upVoteComment: (id, vote) => commentVote(id, vote),
+      downVoteComment: (id, vote) => commentVote(id, vote),
     },
     dispatch,
   );
-
-export default connect(
-  state => ({
-    body: state.comments.newCommentBody,
-    author: state.comments.newCommentAuthor,
-    comment: state.comments.comment,
-  }),
-  mapDispatchToProps,
-)(EditComment);
+export default connect(mapStateToProps, mapDispatchToProps)(EditComment);

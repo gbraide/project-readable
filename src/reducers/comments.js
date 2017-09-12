@@ -51,7 +51,6 @@ export const fetchAllComments = id => (dispatch) => {
 export const sendComment = _comment => (dispatch) => {
   postComment(_comment).then(comment => dispatch(getSingleComment(comment)));
 };
-
 export const fetchSingleComment = id => (dispatch) => {
   getSingleComments(id).then(comment => dispatch(getSingleComment(comment)));
 };
@@ -62,5 +61,5 @@ export const deleteSingleComment = id => (dispatch) => {
   deleteComment(id).then(allComments => dispatch(getComments(allComments)));
 };
 export const commentVote = (id, vote) => (dispatch) => {
-  voteOnComment(id, vote).then(allComments => dispatch(getComments(allComments)));
+  voteOnComment(id, vote).then(comment => dispatch(getSingleComment(comment)));
 };
