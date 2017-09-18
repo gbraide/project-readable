@@ -40,7 +40,10 @@ class PostDetail extends Component {
     const post = this.props.post;
     const convertTimestamp = new Date(post.timestamp);
     const date = convertTimestamp.toString();
-
+    console.log(post)
+      if (!post || post.error) {
+    return (<div>Sorry, post was not found</div>);
+  }
     return (
       <div>
         <header>
@@ -91,6 +94,7 @@ class PostDetail extends Component {
         </section>
       </div>
     );
+  
   }
 }
 

@@ -21,10 +21,10 @@ const App = () => (
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/add-post" component={AddPost} />
-      <Route exact path="/post/:id" component={PostDetail} />
-      <Route exact path="/post/:id/edit-post" component={EditPost} />
-      <Route exact path="/post/:id/add-comment" component={AddComment} />
-      <Route exact path="/post/:id/edit-comment/:commentId" component={EditComment} />
+      <Route path="/post/:id" component={PostDetail} />
+      <Route path="/post/:id/edit-post" component={EditPost} />
+      <Route path="/post/:id/add-comment" component={AddComment} />
+      <Route path="/post/:id/edit-comment/:commentId" component={EditComment} />
       <Route component={NoMatch} />
     </Switch>
   </div>
