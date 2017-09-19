@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import store from '../store';
-import { commentVote } from '../reducers/comments';
+import { commentVote, fetchAllComments } from '../reducers/comments';
 
 class CommentItem extends Component {
   constructor(props) {
@@ -20,9 +20,11 @@ class CommentItem extends Component {
   }
   handleUpVote() {
     this.props.upVoteComment(this.props.comment.id, { option: 'upVote' });
+    this.props.fetchAllComments(this.props.comment.parentId);
   }
   handleDownVote() {
     this.props.downVoteComment(this.props.comment.id, { option: 'downVote' });
+    this.props.fetchAllComments(this.props.comment.parentId);
   }
   render() {
     const comment = this.props.comment;
@@ -64,6 +66,7 @@ const mapDispatchToProps = dispatch =>
     {
       upVoteComment: (id, vote) => commentVote(id, vote),
       downVoteComment: (id, vote) => commentVote(id, vote),
+      fetchAllComments: id => fetchAllComments(id),
     },
     dispatch,
   );
