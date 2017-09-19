@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './Home';
+import NavHome from './Nav-home';
 import AddPost from './Add-post';
 import PostDetail from './Post-detail';
 import EditPost from './Edit-post';
@@ -20,6 +21,7 @@ const App = () => (
   <div>
     <Switch>
       <Route exact path="/" component={Home} />
+      <Route exact path="/home/:catId" component={NavHome} />
       <Route exact path="/add-post" component={AddPost} />
       <Route exact path="/post/:id" component={PostDetail} />
       <Route exact path="/post/:id/edit-post" component={EditPost} />

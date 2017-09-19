@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import SortBy from './SortBy';
 import { Posts } from './Posts';
 import { fetchAllCategories } from '../reducers/categories';
-import { fetchPosts, fetchAllPosts } from '../reducers/posts';
+import { fetchPosts } from '../reducers/posts';
 
 class Home extends Component {
   constructor(props) {
@@ -15,11 +15,11 @@ class Home extends Component {
   }
   componentDidMount() {
     this.props.fetchAllCategories();
-    this.props.fetchAllPosts();
+    this.props.fetchPosts(this.props.match.params.catId);
   }
   handleClick(e) {
     if (e.target.value === 'All') {
-      this.props.fetchAllPosts();
+      this.props.history.push('/');
     } else {
       this.props.fetchPosts(e.target.value);
       this.props.history.push(`/home/${e.target.value}`);
@@ -66,7 +66,6 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       fetchAllCategories: () => fetchAllCategories(),
-      fetchAllPosts: () => fetchAllPosts(),
       fetchPosts: category => fetchPosts(category),
     },
     dispatch,
