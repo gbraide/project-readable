@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import NavMenu from './Nav-menu';
 import { newCommentBody, newCommentAuthor } from '../actions';
 import {
   fetchSingleComment,
@@ -65,12 +66,17 @@ class EditComment extends Component {
     const bodyPlaceholder = this.props.body ? this.props.body : this.props.comment.body;
     const authorPlaceholder = this.props.author ? this.props.author : this.props.comment.author;
     if (_.isEmpty(this.props.post) || !this.props.post || this.props.post.error) {
-      return <div>Sorry, post was not found</div>;
+      return (
+        <div>
+          <NavMenu />
+          <div>Sorry, post was not found</div>
+        </div>
+      );
     }
     return (
       <div>
         <header>
-          <h1>Readable App</h1>
+          <NavMenu />
           <h4>View/Edit Comment</h4>
           <div>
             <cite>

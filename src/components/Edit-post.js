@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import NavMenu from './Nav-menu';
 import { newPostTitle, newPostBody } from '../actions';
 import { fetchSinglePost, editPost, postVote } from '../reducers/posts';
 import _ from 'lodash';
@@ -54,13 +55,18 @@ class EditPost extends Component {
     const authorPlaceholder = this.props.author ? this.props.author : this.props.post.author;
 
     if (_.isEmpty(this.props.post) || !this.props.post || this.props.post.error) {
-      return <div>Sorry, post was not found</div>;
+      return (
+        <div>
+          <NavMenu />
+          <div>Sorry, post was not found</div>
+        </div>
+      );
     }
 
     return (
       <div>
         <header>
-          <h1>Readable App</h1>
+          <NavMenu />
           <h4>Edit Post</h4>
           <div>
             <cite>

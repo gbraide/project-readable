@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import NavMenu from './Nav-menu';
 import SortCommentsBy from './SortCommentsBy';
 import { Comments } from './Comments';
 import { fetchSinglePost, deleteSinglePost, postVote } from '../reducers/posts';
@@ -42,12 +43,17 @@ class PostDetail extends Component {
     const convertTimestamp = new Date(post.timestamp);
     const date = convertTimestamp.toString();
     if (_.isEmpty(post) || !post || post.error) {
-      return <div>Sorry, post was not found</div>;
+      return (
+        <div>
+          <NavMenu />
+          <div>Sorry, post was not found</div>
+        </div>
+      );
     }
     return (
       <div>
         <header>
-          <h1>Readable App</h1>
+          <NavMenu />
         </header>
         <article>
           <div style={{ float: 'right' }}>

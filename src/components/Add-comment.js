@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import NavMenu from './Nav-menu';
 import { newCommentBody, newCommentAuthor } from '../actions';
 import { sendComment } from '../reducers/comments';
 import { fetchSinglePost } from '../reducers/posts';
@@ -45,12 +46,17 @@ class AddComment extends Component {
   }
   render() {
     if (_.isEmpty(this.props.post) || !this.props.post || this.props.post.error) {
-      return <div>Sorry, post was not found</div>;
+      return (
+        <div>
+          <NavMenu />
+          <div>Sorry, post was not found</div>
+        </div>
+      );
     }
     return (
       <div>
         <header>
-          <h1>Readable App</h1>
+          <NavMenu />
           <h4>Add New Comment</h4>
         </header>
         <form onSubmit={this.handleSubmit}>
