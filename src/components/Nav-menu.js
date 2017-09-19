@@ -39,7 +39,9 @@ class NavMenu extends Component {
           <form>
             <h1>Readable App</h1>
             <div>
-              <span>Categories Menu: </span>
+              <span>
+                <b>Categories Menu: </b>
+              </span>
               <span>
                 <input type="button" key="All" onClick={this.handleClick} value="All" />
               </span>

@@ -60,9 +60,13 @@ class PostItem extends Component {
             </cite>
           </div>
         </div>
+        <div>
+          <small> Category: {post.category}</small>
+        </div>
+        <div>
+          <button onClick={this.handleClick}>Post Detail</button>
+        </div>
         <hr />
-        <small> Category: {post.category} |</small>
-        <button onClick={this.handleClick}>Post Detail</button>
       </section>
     );
   }
