@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { newPostTitle, newPostBody } from '../actions';
 import { fetchSinglePost, editPost, postVote } from '../reducers/posts';
+import _ from 'lodash';
 
 class EditPost extends Component {
   constructor(props) {
@@ -51,6 +52,10 @@ class EditPost extends Component {
     const titlePlaceholder = this.props.title ? this.props.title : this.props.post.title;
     const bodyPlaceholder = this.props.body ? this.props.body : this.props.post.body;
     const authorPlaceholder = this.props.author ? this.props.author : this.props.post.author;
+
+    if (_.isEmpty(this.props.post) || !this.props.post || this.props.post.error) {
+      return <div>Sorry, post was not found</div>;
+    }
 
     return (
       <div>

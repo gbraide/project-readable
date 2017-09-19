@@ -5,6 +5,7 @@ import SortCommentsBy from './SortCommentsBy';
 import { Comments } from './Comments';
 import { fetchSinglePost, deleteSinglePost, postVote } from '../reducers/posts';
 import { fetchAllComments } from '../reducers/comments';
+import _ from 'lodash';
 
 class PostDetail extends Component {
   constructor(props) {
@@ -40,10 +41,9 @@ class PostDetail extends Component {
     const post = this.props.post;
     const convertTimestamp = new Date(post.timestamp);
     const date = convertTimestamp.toString();
-    console.log(post)
-      if (!post || post.error) {
-    return (<div>Sorry, post was not found</div>);
-  }
+    if (_.isEmpty(post) || !post || post.error) {
+      return <div>Sorry, post was not found</div>;
+    }
     return (
       <div>
         <header>
@@ -94,7 +94,6 @@ class PostDetail extends Component {
         </section>
       </div>
     );
-  
   }
 }
 

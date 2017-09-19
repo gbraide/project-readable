@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { newCommentBody, newCommentAuthor } from '../actions';
 import { sendComment } from '../reducers/comments';
+import { fetchSinglePost } from '../reducers/posts';
+import _ from 'lodash';
 
 class AddComment extends Component {
   constructor(props) {
@@ -12,6 +14,9 @@ class AddComment extends Component {
     this.handleAuthorChange = this.handleAuthorChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+  }
+  componentDidMount() {
+    this.props.fetchSinglePost(this.props.match.params.id);
   }
   handleBodyChange(e) {
     this.props.onBodyChange(e.target.value);
@@ -39,6 +44,9 @@ class AddComment extends Component {
     this.props.history.push(`/post/${this.props.match.params.id}`);
   }
   render() {
+    if (_.isEmpty(this.props.post) || !this.props.post || this.props.post.error) {
+      return <div>Sorry, post was not found</div>;
+    }
     return (
       <div>
         <header>
@@ -76,6 +84,7 @@ class AddComment extends Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
+      fetchSinglePost: id => fetchSinglePost(id),
       onBodyChange: value => newCommentBody(value),
       onAuthorChange: value => newCommentAuthor(value),
       onSubmit: comment => sendComment(comment),
@@ -85,6 +94,7 @@ const mapDispatchToProps = dispatch =>
 
 export default connect(
   state => ({
+    post: state.posts.post,
     body: state.comments.newCommentBody,
     author: state.comments.newCommentAuthor,
   }),

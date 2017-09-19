@@ -8,6 +8,8 @@ import {
   deleteSingleComment,
   commentVote,
 } from '../reducers/comments';
+import { fetchSinglePost } from '../reducers/posts';
+import _ from 'lodash';
 
 class EditComment extends Component {
   constructor(props) {
@@ -22,6 +24,7 @@ class EditComment extends Component {
     this.handleDownVote = this.handleDownVote.bind(this);
   }
   componentDidMount() {
+    this.props.fetchSinglePost(this.props.match.params.id);
     this.props.fetchSingleComment(this.props.match.params.commentId);
   }
   handleBodyChange(e) {
@@ -61,6 +64,9 @@ class EditComment extends Component {
   render() {
     const bodyPlaceholder = this.props.body ? this.props.body : this.props.comment.body;
     const authorPlaceholder = this.props.author ? this.props.author : this.props.comment.author;
+    if (_.isEmpty(this.props.post) || !this.props.post || this.props.post.error) {
+      return <div>Sorry, post was not found</div>;
+    }
     return (
       <div>
         <header>
@@ -112,6 +118,7 @@ class EditComment extends Component {
 }
 
 const mapStateToProps = state => ({
+  post: state.posts.post,
   body: state.comments.newCommentBody,
   author: state.comments.newCommentAuthor,
   comment: state.comments.comment,
@@ -120,6 +127,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
+      fetchSinglePost: id => fetchSinglePost(id),
       fetchSingleComment: id => fetchSingleComment(id),
       onBodyChange: value => newCommentBody(value),
       onAuthorChange: value => newCommentAuthor(value),
