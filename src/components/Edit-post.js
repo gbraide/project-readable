@@ -56,57 +56,88 @@ class EditPost extends Component {
 
     if (_.isEmpty(this.props.post) || !this.props.post || this.props.post.error) {
       return (
-        <div>
-          <NavMenu />
-          <div>Sorry, post was not found</div>
+        <div className="container">
+          <div className="row">
+            <div className="col-xs-12">
+              <header className="page-header">
+                <NavMenu />
+              </header>
+              <div>Sorry, post was not found</div>
+            </div>
+          </div>
         </div>
       );
     }
 
     return (
-      <div>
-        <header>
-          <NavMenu />
-          <h4>Edit Post</h4>
-          <div>
-            <cite>
-              <small> Score: {this.props.post.voteScore} </small>
-              <small>
-                <button onClick={this.handleUpVote}>Up Vote</button>
-              </small>
-              <small>
-                <button onClick={this.handleDownVote}>Down vote</button>
-              </small>
-            </cite>
+      <div className="container">
+        <div className="row">
+          <div className="col-xs-12">
+            <header>
+              <NavMenu />
+              <h4>Edit Post</h4>
+              <div>
+                <cite>
+                  <small className="readable-post-score-btns">
+                    Score: {this.props.post.voteScore}{' '}
+                  </small>
+                  <small className="readable-post-score-btns">
+                    <button className="btn btn-success btn-xs" onClick={this.handleUpVote}>
+                      Up Vote
+                    </button>
+                  </small>
+                  <small className="readable-post-score-btns">
+                    <button className="btn btn-danger btn-xs" onClick={this.handleDownVote}>
+                      Down vote
+                    </button>
+                  </small>
+                </cite>
+              </div>
+            </header>
           </div>
-        </header>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            value={titlePlaceholder}
-            onChange={this.handleTitleChange}
-            placeholder={titlePlaceholder}
-          />
-          <br />
-          <textarea
-            type="text"
-            value={bodyPlaceholder}
-            onChange={this.handleBodyChange}
-            placeholder={bodyPlaceholder}
-          />
-          <br />
-          <input type="text" value={authorPlaceholder} disabled />
-          <p>Category: {this.props.post.category}</p>
-          <br />
-          <div>
-            <span>
-              <input type="submit" value="Submit" />
-            </span>
-            <span>
-              <button onClick={this.handleCancel}>Cancel</button>
-            </span>
+        </div>
+        <div className="row">
+          <div className="col-xs-12">
+            <form onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="title">Title</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={titlePlaceholder}
+                  onChange={this.handleTitleChange}
+                  placeholder={titlePlaceholder}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="postBody">Body</label>
+                <textarea
+                  type="text"
+                  className="form-control"
+                  value={bodyPlaceholder}
+                  onChange={this.handleBodyChange}
+                  placeholder={bodyPlaceholder}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="author">Author</label>
+                <input type="text" className="form-control" value={authorPlaceholder} disabled />
+              </div>
+              <p>Category: {this.props.post.category}</p>
+              <br />
+              <div>
+                <span className="readable-form-action-btns">
+                  <input type="submit" className="btn btn-success" value="Submit" />
+                </span>
+                <span className="readable-form-action-btns">
+                  <button className="btn btn-danger" onClick={this.handleCancel}>
+                    Cancel
+                  </button>
+                </span>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     );
   }
