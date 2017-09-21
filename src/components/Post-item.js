@@ -50,12 +50,16 @@ class PostItem extends Component {
           </span>
           <div>
             <cite>
-              <small> Score: {post.voteScore} </small>
-              <small>
-                <button onClick={this.handleUpVote}>Up Vote</button>
+              <small className="readable-post-score-btns"> Score: {post.voteScore} </small>
+              <small className="readable-post-score-btns">
+                <button className="btn btn-success btn-xs" onClick={this.handleUpVote}>
+                  Up Vote
+                </button>
               </small>
-              <small>
-                <button onClick={this.handleDownVote}>Down vote</button>
+              <small className="readable-post-score-btns">
+                <button className="btn btn-danger btn-xs" onClick={this.handleDownVote}>
+                  Down vote
+                </button>
               </small>
             </cite>
           </div>
@@ -64,9 +68,10 @@ class PostItem extends Component {
           <small> Category: {post.category}</small>
         </div>
         <div>
-          <button onClick={this.handleClick}>Post Detail</button>
+          <button className="btn btn-info btn-sm" onClick={this.handleClick}>
+            Post Detail
+          </button>
         </div>
-        <hr />
       </section>
     );
   }
