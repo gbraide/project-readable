@@ -67,57 +67,84 @@ class EditComment extends Component {
     const authorPlaceholder = this.props.author ? this.props.author : this.props.comment.author;
     if (_.isEmpty(this.props.post) || !this.props.post || this.props.post.error) {
       return (
-        <div>
-          <NavMenu />
-          <div>Sorry, post was not found</div>
+        <div className="container">
+          <div className="row">
+            <div className="col-xs-12">
+              <header className="page-header">
+                <NavMenu />
+              </header>
+              <div>Sorry, post was not found</div>
+            </div>
+          </div>
         </div>
       );
     }
     return (
-      <div>
-        <header>
-          <NavMenu />
-          <h4>View/Edit Comment</h4>
-          <div>
-            <cite>
-              <small> Score: {this.props.comment.voteScore} </small>
-              <small>
-                <button onClick={this.handleUpVote}>Up Vote</button>
-              </small>
-              <small>
-                <button onClick={this.handleDownVote}>Down vote</button>
-              </small>
-            </cite>
+      <div className="container">
+        <div className="row">
+          <div className="col-xs-12">
+            <header className="page-header">
+              <NavMenu />
+              <h4>View/Edit Comment</h4>
+              <div>
+                <cite>
+                  <small className="readable-post-score-btns">
+                    {' '}
+                    Score: {this.props.comment.voteScore}{' '}
+                  </small>
+                  <small className="readable-post-score-btns">
+                    <button className="btn btn-success btn-xs" onClick={this.handleUpVote}>
+                      Up Vote
+                    </button>
+                  </small>
+                  <small className="readable-post-score-btns">
+                    <button className="btn btn-danger btn-xs" onClick={this.handleDownVote}>
+                      Down vote
+                    </button>
+                  </small>
+                </cite>
+              </div>
+            </header>
+            <form onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="author">Author</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={this.props.author}
+                  onChange={this.handleAuthorChange}
+                  placeholder={authorPlaceholder}
+                  disabled
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="body">Body</label>
+                <textarea
+                  type="text"
+                  className="form-control"
+                  value={bodyPlaceholder}
+                  onChange={this.handleBodyChange}
+                  placeholder={bodyPlaceholder}
+                />
+              </div>
+              <div>
+                <span className="readable-form-action-btns">
+                  <input className="btn btn-success" type="submit" value="Submit" />
+                </span>
+                <span className="readable-form-action-btns">
+                  <button className="btn btn-warning" onClick={this.handleCancel}>
+                    Cancel
+                  </button>
+                </span>
+                <span className="readable-form-action-btns">
+                  <button className="btn btn-danger" onClick={this.handleDelete}>
+                    Delete
+                  </button>
+                </span>
+              </div>
+            </form>
           </div>
-        </header>
-        <hr />
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            value={this.props.author}
-            onChange={this.handleAuthorChange}
-            placeholder={authorPlaceholder}
-            disabled
-          />
-          <br />
-          <textarea
-            value={bodyPlaceholder}
-            onChange={this.handleBodyChange}
-            placeholder={bodyPlaceholder}
-          />
-          <br />
-          <div>
-            <span>
-              <input type="submit" value="Submit" />
-            </span>
-            <span>
-              <button onClick={this.handleCancel}>Cancel</button>
-            </span>
-            <span>
-              <button onClick={this.handleDelete}>Delete</button>
-            </span>
-          </div>
-        </form>
+        </div>
       </div>
     );
   }
