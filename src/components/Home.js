@@ -33,30 +33,55 @@ class Home extends Component {
     if (this.props.categoriesList) {
       this.props.categoriesList.forEach((category) => {
         categoriesList.push(
-          <span key={category.name}>
-            <input type="button" onClick={this.handleClick} value={category.name} />
+          <span key={category.name} className="readable-nav-btns">
+            <input
+              type="button"
+              className="btn btn-info"
+              onClick={this.handleClick}
+              value={category.name}
+            />
           </span>,
         );
       });
     }
     return (
-      <div>
-        <header>
-          <h1>Readable App</h1>
-        </header>
-        <nav>
-          <form>
-            <span>
-              <input type="button" key="All" onClick={this.handleClick} value="All" />
-            </span>
-            {categoriesList}
-          </form>
-        </nav>
-        <section>
-          <SortBy />
-          <button onClick={this.handlePostAdd}>Add Post</button>
-          <Posts posts={this.props.posts} sortOrder={this.props.sortBy} />
-        </section>
+      <div className="container">
+        <div className="row">
+          <div className="col-xs-12">
+            <header className="page-header">
+              <h1>Readable App</h1>
+            </header>
+            <nav>
+              <form>
+                <span className="readable-nav-btns">
+                  <input
+                    type="button"
+                    key="All"
+                    className="btn btn-info"
+                    onClick={this.handleClick}
+                    value="All"
+                  />
+                </span>
+                {categoriesList}
+              </form>
+            </nav>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-xs-12">
+            <div className="readable-home-body">
+              <div className="panel panel-default">
+                <section className="panel-body">
+                  <SortBy />
+                  <button className="btn btn-success btn-xs" onClick={this.handlePostAdd}>
+                    Add Post
+                  </button>
+                  <Posts posts={this.props.posts} sortOrder={this.props.sortBy} />
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

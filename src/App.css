@@ -1,3 +1,9 @@
 .App {
   text-align: center;
 }
+.readable-nav-btns {
+  padding: 0 2px;
+}
+.readable-home-body {
+  padding: 20px 0;
+}
