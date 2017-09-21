@@ -27,8 +27,13 @@ class NavMenu extends Component {
     if (this.props.categoriesList) {
       this.props.categoriesList.forEach((category) => {
         categoriesList.push(
-          <span key={category.name}>
-            <input type="button" onClick={this.handleClick} value={category.name} />
+          <span key={category.name} className="readable-nav-btns">
+            <input
+              type="button"
+              className="btn btn-info"
+              onClick={this.handleClick}
+              value={category.name}
+            />
           </span>,
         );
       });
@@ -43,7 +48,13 @@ class NavMenu extends Component {
                 <b>Categories Menu: </b>
               </span>
               <span>
-                <input type="button" key="All" onClick={this.handleClick} value="All" />
+                <input
+                  type="button"
+                  className="btn btn-info"
+                  key="All"
+                  onClick={this.handleClick}
+                  value="All"
+                />
               </span>
               {categoriesList}
             </div>

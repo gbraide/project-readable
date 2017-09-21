@@ -59,56 +59,74 @@ class AddPost extends Component {
     if (this.props.categoriesList) {
       this.props.categoriesList.forEach((category) => {
         categoriesList.push(
-          <label key={category.name}>
-            <input
-              type="radio"
-              onChange={this.handleOptionChange}
-              value={category.name}
-              checked={this.props.category === category.name}
-            />
-            {category.name}
-          </label>,
+          <div className="radio" key={category.name}>
+            <label>
+              <input
+                type="radio"
+                onChange={this.handleOptionChange}
+                value={category.name}
+                checked={this.props.category === category.name}
+              />
+              {category.name}
+            </label>
+          </div>,
         );
       });
     }
     return (
-      <div>
-        <header>
-          <NavMenu />
-          <h4>Add New Post</h4>
-        </header>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            value={this.props.title}
-            onChange={this.handleTitleChange}
-            placeholder="Enter Title..."
-          />
-          <br />
-          <textarea
-            value={this.props.body}
-            onChange={this.handleBodyChange}
-            placeholder="Enter Description..."
-          />
-          <br />
-          <input
-            type="text"
-            value={this.props.author}
-            onChange={this.handleAuthorChange}
-            placeholder="Enter Author..."
-          />
-          <br />
-          {categoriesList}
-          <br />
-          <div>
-            <span>
-              <input type="submit" value="Submit" />
-            </span>
-            <span>
-              <button onClick={this.handleCancel}>Cancel</button>
-            </span>
+      <div className="container">
+        <div className="row">
+          <div className="col-xs-12">
+            <header className="page-header">
+              <NavMenu />
+              <h4>Add New Post</h4>
+            </header>
+            <form onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="title">Title</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={this.props.title}
+                  onChange={this.handleTitleChange}
+                  placeholder="Enter Title..."
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="description">Description</label>
+                <textarea
+                  type="text"
+                  className="form-control"
+                  value={this.props.body}
+                  onChange={this.handleBodyChange}
+                  placeholder="Enter Description..."
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="author">Author</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={this.props.author}
+                  onChange={this.handleAuthorChange}
+                  placeholder="Enter Author..."
+                />
+              </div>
+              {categoriesList}
+              <br />
+              <div>
+                <span className="readable-form-action-btns">
+                  <input type="submit" className="btn btn-success" value="Submit" />
+                </span>
+                <span className="readable-form-action-btns">
+                  <button className="btn btn-danger" onClick={this.handleCancel}>
+                    Cancel
+                  </button>
+                </span>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     );
   }
