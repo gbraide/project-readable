@@ -76,7 +76,9 @@ class Home extends Component {
                   <button className="btn btn-success btn-xs" onClick={this.handlePostAdd}>
                     Add Post
                   </button>
-                  <Posts posts={this.props.posts} sortOrder={this.props.sortBy} />
+                  <div className="readable-list-group">
+                    <Posts posts={this.props.posts} sortOrder={this.props.sortBy} />
+                  </div>
                 </section>
               </div>
             </div>
