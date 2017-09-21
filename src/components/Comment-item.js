@@ -45,17 +45,23 @@ class CommentItem extends Component {
         </div>
         <div>
           <cite>
-            <small> Score: {comment.voteScore} </small>
-            <small>
-              <button onClick={this.handleUpVote}>Up Vote</button>
+            <small className="readable-post-score-btns"> Score: {comment.voteScore} </small>
+            <small className="readable-post-score-btns">
+              <button className="btn btn-success btn-xs" onClick={this.handleUpVote}>
+                Up Vote
+              </button>
             </small>
-            <small>
-              <button onClick={this.handleDownVote}>Down vote</button>
+            <small className="readable-post-score-btns">
+              <button className="btn btn-danger btn-xs" onClick={this.handleDownVote}>
+                Down vote
+              </button>
             </small>
           </cite>
         </div>
         <p>{comment.body}</p>
-        <button onClick={this.handleClick}>Comment Detail</button>
+        <button className="btn btn-info btn-sm" onClick={this.handleClick}>
+          Comment Detail
+        </button>
       </section>
     );
   }

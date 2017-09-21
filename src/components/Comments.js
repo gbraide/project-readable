@@ -10,12 +10,11 @@ export const Comments = (props) => {
     const sortedList = _.orderBy(activeComments, [sortValue], ['desc']);
     sortedList.forEach((comment) => {
       list.push(
-        <li key={comment.id}>
+        <li className="list-group-item" key={comment.id}>
           <CommentItem comment={comment} />
-          <hr />
         </li>,
       );
     });
   }
-  return <ul>{list}</ul>;
+  return <ul className="list-group">{list}</ul>;
 };
