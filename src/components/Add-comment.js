@@ -47,41 +47,60 @@ class AddComment extends Component {
   render() {
     if (_.isEmpty(this.props.post) || !this.props.post || this.props.post.error) {
       return (
-        <div>
-          <NavMenu />
-          <div>Sorry, post was not found</div>
+        <div className="container">
+          <div className="row">
+            <div className="col-xs-12">
+              <header className="page-header">
+                <NavMenu />
+              </header>
+              <div>Sorry, post was not found</div>
+            </div>
+          </div>
         </div>
       );
     }
     return (
-      <div>
-        <header>
-          <NavMenu />
-          <h4>Add New Comment</h4>
-        </header>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            value={this.props.author}
-            onChange={this.handleAuthorChange}
-            placeholder="Enter Author..."
-          />
-          <br />
-          <textarea
-            value={this.props.body}
-            onChange={this.handleBodyChange}
-            placeholder="Enter Comment..."
-          />
-          <br />
-          <div>
-            <span>
-              <input type="submit" value="Submit" />
-            </span>
-            <span>
-              <button onClick={this.handleCancel}>Cancel</button>
-            </span>
+      <div className="container">
+        <div className="row">
+          <div className="col-xs-12">
+            <header className="page-header">
+              <NavMenu />
+              <h4>Add New Comment</h4>
+            </header>
+            <form onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="author">Author</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={this.props.author}
+                  onChange={this.handleAuthorChange}
+                  placeholder="Enter Author..."
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="body">Body</label>
+                <textarea
+                  type="text"
+                  className="form-control"
+                  value={this.props.body}
+                  onChange={this.handleBodyChange}
+                  placeholder="Enter Comment..."
+                />
+              </div>
+              <div>
+                <span className="readable-form-action-btns">
+                  <input type="submit" className="btn btn-success" value="Submit" />
+                </span>
+                <span className="readable-form-action-btns">
+                  <button className="btn btn-danger" onClick={this.handleCancel}>
+                    Cancel
+                  </button>
+                </span>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     );
   }
